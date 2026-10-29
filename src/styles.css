@@ -93,3 +93,55 @@ h1, h2, h3 { line-height: 1.25; }
   .nav-links { gap: 10px; font-size: .9rem; }
   .profile dl { grid-template-columns: 90px 1fr; }
 }
+
+.badge { display: inline-block; margin-left: 4px; min-width: 20px; padding: 0 6px; border-radius: 999px; background: var(--canola); color: var(--stone); font-size: .75rem; font-weight: 700; text-align: center; }
+.price { margin-top: 8px !important; font-weight: 700; color: var(--sea-dark) !important; font-size: 1.05rem !important; }
+.card-body .btn { margin-top: 10px; }
+
+.cart-list { list-style: none; padding: 0; margin: 20px 0; display: flex; flex-direction: column; gap: 12px; }
+.cart-row { display: grid; grid-template-columns: 64px 1fr auto 110px auto; align-items: center; gap: 14px; padding: 12px; background: var(--sea-light); border-radius: var(--radius); }
+.cart-thumb { width: 64px; height: 64px; border-radius: 10px; background-size: cover; background-position: center; background-color: #bcd9ea; }
+.cart-thumb.fallback.sea { background-image: linear-gradient(135deg, #0b6fb8, #6cc4e8); }
+.cart-info { display: flex; flex-direction: column; }
+.qty { display: flex; align-items: center; gap: 10px; }
+.qty button { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--sea); background: #fff; color: var(--sea); font-size: 1.1rem; cursor: pointer; }
+.line-total { text-align: right; font-weight: 700; }
+.cart-summary { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.cart-total { font-size: 1.2rem; }
+.cart-total strong { color: var(--sea-dark); font-size: 1.5rem; }
+
+@media (max-width: 600px) {
+  .cart-row { grid-template-columns: 56px 1fr; }
+  .qty, .line-total { grid-column: 2; text-align: left; }
+}
+
+/* 3D 지도 */
+.map-page { display: grid; grid-template-columns: 280px 1fr; height: calc(100vh - 57px); min-height: 520px; }
+.map-side { padding: 18px; overflow-y: auto; background: var(--sea-light); display: flex; flex-direction: column; gap: 12px; }
+.map-side h2 { margin: 0; font-size: 1.3rem; color: var(--sea-dark); }
+.map-help { margin: 0; font-size: .82rem; color: #46616f; }
+.notice.ok { background: #dff5e6; color: #14663a; }
+.place-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.place-list button { width: 100%; text-align: left; padding: 9px 12px; border: 1px solid #b9d3e2; border-radius: 8px; background: #fff; font: inherit; cursor: pointer; }
+.place-list button:hover, .place-list button.on { background: var(--sea); color: #fff; border-color: var(--sea); }
+.map-wrap { position: relative; min-height: 360px; }
+.map-canvas { position: absolute; inset: 0; }
+.map-error { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 2; }
+.pin { position: relative; width: 26px; height: 26px; padding: 0; border: 0; background: none; cursor: pointer; }
+.pin span { display: block; width: 18px; height: 18px; margin: 4px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--canola); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.5); }
+.pin em { position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%); white-space: nowrap; font-style: normal; font-size: .75rem; font-weight: 700; color: #fff; padding: 1px 7px; border-radius: 999px; background: rgba(8,73,122,.85); pointer-events: none; }
+.popup { font-size: .85rem; color: var(--text); }
+.popup p { margin: 4px 0 6px; }
+.popup dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; margin: 0; font-size: .78rem; }
+.popup dt { font-weight: 700; }
+.popup dd { margin: 0; word-break: break-all; }
+
+@media (max-width: 760px) {
+  .map-page { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; }
+  .map-side { max-height: 220px; }
+  .map-wrap { height: 70vh; }
+}
+
+.nav { flex-wrap: wrap; gap: 6px 12px; }
+.nav-links { flex-wrap: wrap; }
+.nav-links a, .nav-links button, .brand { white-space: nowrap; }

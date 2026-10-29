@@ -1,8 +1,10 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthContext.jsx'
+import { useCart } from '../CartContext.jsx'
 
 export default function Navbar() {
   const { user, signOut } = useAuth()
+  const { count } = useCart()
   const navigate = useNavigate()
 
   async function handleSignOut() {
@@ -16,8 +18,11 @@ export default function Navbar() {
       <nav className="nav-links">
         <a href="/#spots">명소</a>
         <a href="/#foods">먹거리</a>
+        <NavLink to="/map">3D 지도</NavLink>
+        <NavLink to="/shop">상점</NavLink>
         {user ? (
           <>
+            <NavLink to="/cart">🛒 장바구니{count > 0 && <span className="badge">{count}</span>}</NavLink>
             <NavLink to="/members">내 프로필</NavLink>
             <button type="button" className="btn btn-ghost" onClick={handleSignOut}>로그아웃</button>
           </>

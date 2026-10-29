@@ -98,6 +98,19 @@ React Router 를 쓰므로 `/login`, `/members` 를 주소창에 직접 입력�
 }
 ```
 
+## 6. 장바구니 · DB 테이블 만들기 (SQL)
+
+상점(`/shop`)과 장바구니(`/cart`)는 Supabase 테이블 `products`, `cart_items` 를 사용합니다.
+
+1. Supabase 대시보드 → 왼쪽 **SQL Editor** → **New query**
+2. [`supabase/schema.sql`](supabase/schema.sql) 내용을 전부 붙여 넣고 **Run**
+3. **Table Editor** 에서 `products`(샘플 상품 6개), `cart_items` 가 생겼는지 확인
+
+- `products`: 누구나 읽기만 가능 (RLS). 상품 추가·수정은 Table Editor 에서 직접 하세요.
+- `cart_items`: RLS 로 **로그인한 사용자가 자기 장바구니만** 조회·추가·수정·삭제할 수 있습니다. (`user_id` 는 `auth.uid()` 가 자동으로 채움)
+- 같은 SQL 을 다시 실행해도 안전합니다(`if not exists`, `on conflict do nothing`).
+- 테이블을 만들기 전에는 상점 화면에 "테이블이 없습니다" 안내가 표시됩니다.
+
 ## 이미지 출처
 
 모든 사진은 [Pixabay](https://pixabay.com) 의 이미지이며, 사용한 사진의 Pixabay 페이지 링크는 사이트 푸터에 표기됩니다. 이미지 목록은 `src/data/content.js` 에 있고, 직접 확인한 `cdn.pixabay.com` 주소만 사용합니다. 돌담·흑돼지·해산물은 확인된 이미지가 없어 그라데이션으로 대체했으니, Pixabay 에서 마음에 드는 사진을 찾아 `image`/`page` 값을 채우면 됩니다.
@@ -116,3 +129,12 @@ jeju-site/
    ├─ components/         # Navbar, Footer, Card
    └─ pages/              # Home, Login, Signup, Members(보호됨)
 ```
+
+## 7. 3D 대표경관 지도 (`/map`) 와 공공데이터 API
+
+- MapLibre GL 로 위성사진 + 고도 데이터를 입히는 입체 지형 지도입니다. 드래그로 이동, 오른쪽 드래그로 회전·기울기, 휠로 확대, 목록 클릭 시 해당 경관으로 날아갑니다. (키 없이 동작, 위성영상 © Esri · 지형 © AWS Terrain Tiles)
+- 공공데이터포털 대표경관 API(`api.odcloud.kr`)는 **서버에서만** 호출합니다. 인증키가 브라우저에 노출되지 않도록 `/api/landscape` 프록시를 거칩니다.
+  - 로컬: `.env` 에 `DATA_GO_KR_KEY=발급받은키` 추가(`VITE_` 붙이지 않음) 후 개발 서버 재시작
+  - Vercel: Settings → Environment Variables 에 `DATA_GO_KR_KEY` 추가(이 변수는 Sensitive 로 설정 가능) → Redeploy
+  - Encoding/Decoding 키 어느 쪽이든 동작합니다.
+- 키가 없거나 API가 실패하면 기본 대표경관 10곳(`src/data/landmarks.js`)으로 계속 동작합니다.
